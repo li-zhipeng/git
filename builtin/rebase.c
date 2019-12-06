@@ -2011,8 +2011,10 @@ int cmd_rebase(int argc, const char **argv, const char *prefix)
 		struct commit *head =
 			lookup_commit_reference(the_repository,
 						&options.orig_head);
+		char * full_name;
+		dwim_ref_or_die(options.upstream_name, strlen(options.upstream_name), &full_name);
 		options.restrict_revision =
-			get_fork_point(options.upstream_name, head);
+			get_fork_point(full_name, head);
 	}
 
 	if (repo_read_index(the_repository) < 0)
